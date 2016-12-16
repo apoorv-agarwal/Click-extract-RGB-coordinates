@@ -1,14 +1,16 @@
 
 
 <body>
-  <textarea rows="4" cols="50" id="alltext">
-</textarea>
-  <p>X:<span id="x"></span></p>
-  <p>Y:<span id="y"></span></p>
-  <p>R:<span id="r"></span></p>
-  <p>G:<span id="g"></span></p>
-  <p>B:<span id="b"></span></p>
-  <canvas id="myCanvas" width="200" height="300" style="border: red;border-style: dotted">
+  <p><input type="text" placeholder="Type your Class here and Refresh" id="class" value ="default"></p>
+
+  <p><textarea rows="4" cols="50" id="alltext"></textarea>
+</textarea></p>
+  <p>X:<span id="x">  </span>
+  Y:<span id="y">  </span>
+  R:<span id="r">  </span>
+  G:<span id="g">  </span>
+  B:<span id="b">  </span></p>
+  <canvas id="myCanvas" width="2000" height="3000" style="border: red;border-style: dotted">
 
   
 </body>
@@ -18,15 +20,25 @@ var context = canvas.getContext("2d");
 
 var destX = 0;
 var destY = 0;
+var class_seen = "default"
 
 var imageObj = new Image();
 imageObj.onload = function()
 {
-context.drawImage(imageObj, destX, destY);
+  context.drawImage(imageObj, destX, destY);
 };
 imageObj.src = "leaves.jpg";
 
+canvas.width = imageObj.width;
+canvas.height = imageObj.height
+
 var Alltext = "";
+
+var current_class = document.getElementById("class");
+current_class.oninput = function()
+{
+  class_seen = document.getElementById("class").value;
+}
 
 
 
@@ -46,7 +58,7 @@ canvas.addEventListener("click", function(e){
         document.getElementById("r").innerHTML = r;
         document.getElementById("g").innerHTML = g;
         document.getElementById("b").innerHTML = b;
-        Alltext += x + "," +y+ "," + r + "," + g + "," + b + "\n"
+        Alltext += x + "," +y+ "," + r + "," + g + "," + b + ","+ class_seen +"\n"
         document.getElementById("alltext").value = Alltext;
 
 
