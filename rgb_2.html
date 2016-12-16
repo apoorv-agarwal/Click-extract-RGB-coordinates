@@ -1,6 +1,8 @@
 
 
 <body>
+  <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
+  <p>File should be in same directory. After adding refresh twice.</p>
   <p><input type="text" placeholder="Type your Class here and Refresh" id="class" value ="default"></p>
 
   <p><textarea rows="4" cols="50" id="alltext"></textarea>
@@ -27,7 +29,9 @@ imageObj.onload = function()
 {
   context.drawImage(imageObj, destX, destY);
 };
-imageObj.src = "leaves.jpg";
+
+var filename = document.getElementById("fileToUpload");
+imageObj.src = document.getElementById("fileToUpload").value;
 
 canvas.width = imageObj.width;
 canvas.height = imageObj.height
