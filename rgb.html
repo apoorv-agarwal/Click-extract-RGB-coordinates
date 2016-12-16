@@ -1,0 +1,48 @@
+
+
+<body>
+  <p>X:<span id="x"></span></p>
+  <p>Y:<span id="y"></span></p>
+  <p>R:<span id="r"></span></p>
+  <p>G:<span id="g"></span></p>
+  <p>B:<span id="b"></span></p>
+  <canvas id="myCanvas" width="200" height="300" style="border: red;border-style: dotted">
+  
+</body>
+<script type="text/javascript">
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d");
+
+var destX = 0;
+var destY = 0;
+
+var imageObj = new Image();
+imageObj.onload = function()
+{
+context.drawImage(imageObj, destX, destY);
+};
+imageObj.src = "leaves.jpg";
+
+
+canvas.addEventListener("mousemove", function(e){
+        if (!e) e = window.event;
+        
+        
+
+        var x = e.offsetX;
+        var y = e.offsetY;
+        var canvasColor = context.getImageData(x, y, 1, 1).data;
+        var r = canvasColor[0];
+        var g = canvasColor[1];
+        var b = canvasColor[2];
+        document.getElementById("x").innerHTML = x;
+        document.getElementById("y").innerHTML = y;
+        document.getElementById("r").innerHTML = r;
+        document.getElementById("g").innerHTML = g;
+        document.getElementById("b").innerHTML = b;
+
+
+
+        //context.fillRect(x, y, 1, 1);
+    });
+</script>
