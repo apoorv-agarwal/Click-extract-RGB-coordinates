@@ -1,0 +1,74 @@
+
+
+<body>
+  <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
+  <p>File should be in same directory. After adding refresh twice.</p>
+  <p><input type="text" placeholder="Type your Class here and Refresh" id="class" value ="default"></p>
+
+  <p><textarea rows="4" cols="50" id="alltext"></textarea>
+</textarea></p>
+  <p>X:<span id="x">  </span>
+  Y:<span id="y">  </span>
+  R:<span id="r">  </span>
+  G:<span id="g">  </span>
+  B:<span id="b">  </span></p>
+  <canvas id="myCanvas" width="2000" height="3000">
+
+  
+</body>
+<script type="text/javascript">
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d");
+
+var destX = 0;
+var destY = 0;
+var class_seen = "default"
+
+var imageObj = new Image();
+imageObj.onload = function()
+{
+  context.drawImage(imageObj, destX, destY);
+};
+
+var filename = document.getElementById("fileToUpload");
+imageObj.src = document.getElementById("fileToUpload").value;
+
+canvas.width = imageObj.width;
+canvas.height = imageObj.height
+
+var Alltext = "";
+
+var current_class = document.getElementById("class");
+current_class.oninput = function()
+{
+  class_seen = document.getElementById("class").value;
+}
+
+
+
+canvas.addEventListener("click", function(e){
+        if (!e) e = window.event;
+        
+        
+
+        var x = e.offsetX;
+        var y = e.offsetY;
+        var canvasColor = context.getImageData(x, y, 1, 1).data;
+        var r = canvasColor[0];
+        var g = canvasColor[1];
+        var b = canvasColor[2];
+        var x_1 = x+1;
+        var y_1 = y+1;
+        document.getElementById("x").innerHTML = x_1;
+        document.getElementById("y").innerHTML = y_1;
+        document.getElementById("r").innerHTML = r;
+        document.getElementById("g").innerHTML = g;
+        document.getElementById("b").innerHTML = b;
+        Alltext += x_1 + "," +y_1+ "," + r + "," + g + "," + b + ","+ class_seen +"\n"
+        document.getElementById("alltext").value = Alltext;
+
+
+
+        //context.fillRect(x, y, 1, 1);
+    });
+</script>
